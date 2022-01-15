@@ -41,8 +41,8 @@ passport.deserializeUser((obj, done) => {
 
 const HOSTNAME = 'http://localhost:3000';
 config.callback_url = 'http://localhost:3001/api/auth/facebook/callback';
-config.facebook_api_secret = '8f891ee90229fd861d4c71bdf648ad14';
-config.facebook_api_key = '2640133479605924';
+config.facebook_api_secret = '4efe2b5fe7cad4aa125e88e5d26fe198';
+config.facebook_api_key = '608987490175096';
 
 // let HOSTNAME = 'https://opexflow.com';
 
@@ -69,9 +69,12 @@ const marketplace = require('./api/marketplace')
 
 
 async function start() {
-  await mongo.init();
+    console.log("Rin 1")
+  await mongo.init()
+//   .then(ss => console.log("Run mongo successfully")).catch(err => console.log("Error while login", err));
 }
 start();
+console.log("Rin 2")
 
 passport.use(new FacebookStrategy({
     clientID: config.facebook_api_key,
@@ -81,7 +84,7 @@ passport.use(new FacebookStrategy({
 },
 ((accessToken, refreshToken, profile, done) => {
     process.nextTick(async () => {
-        console.log(profile);
+        console.log("Mongo : ", mongo);
         if (profile && profile.id) {
 
           const savedImagePath = await saveOrUpdateUser(profile, mongo);
@@ -133,6 +136,8 @@ app.use(session({ secret: 'secret123', key: 'sid' })); // , resave: false, saveU
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());
+
+
 
 app.get('/api', (req, res) => {
     // res.render('index', { user: req.user });
