@@ -8,7 +8,8 @@ const Message = require('../DataModals/Message');
 
 class MongoClientHelper {
   constructor() {
-    const uri = `mongodb+srv://${config.mongodb.username}:${config.mongodb.password}@${config.mongodb.host}/${config.mongodb.database}?retryWrites=true&w=majority`;
+    // const uri = `mongodb+srv://${config.mongodb.username}:${config.mongodb.password}@${config.mongodb.host}/${config.mongodb.database}?retryWrites=true&w=majority`;
+    const uri = `mongodb+srv://${config.mongodb.username}:${config.mongodb.password}@firstcluster.5mzfp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
     this.client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   }
   async init() {
